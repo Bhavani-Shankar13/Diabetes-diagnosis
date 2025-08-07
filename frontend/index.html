@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diabetes Risk Predictor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-tr from-blue-50 via-white to-teal-50 min-h-screen">
+  <header class="bg-blue-800 text-white py-6 shadow-md">
+    <div class="container mx-auto px-6 flex items-center justify-between">
+      <h1 class="text-2xl font-bold">🩺 Diabetes Risk Predictor</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#about" class="hover:underline">About</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex flex-col items-center justify-center px-6 pt-12">
+    <div class="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full animate-fade-in">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">Diabetes Prediction</h2>
+      <form id="diabetesForm" class="space-y-4">
+        <input type="number" placeholder="Pregnancies" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        <input type="number" placeholder="Glucose" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" placeholder="Blood Pressure" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" placeholder="Skin Thickness" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" placeholder="Insulin" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" step="0.1" placeholder="BMI" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" step="0.001" placeholder="Diabetes Pedigree Function" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <input type="number" placeholder="Age" class="w-full border border-gray-300 rounded px-4 py-2" required>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition duration-200 text-white py-2 rounded">Predict</button>
+      </form>
+      <div id="result" class="text-center mt-4 text-lg font-semibold"></div>
+    </div>
+  </main>
+
+  <!-- <section id="about" class="mt-20 px-6 max-w-4xl mx-auto">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">About This Tool</h3>
+    <p class="text-gray-600">This AI-powered tool predicts the risk of diabetes based on user input. It uses machine learning models trained on real medical data (Pima Indians dataset) to assist in early risk assessment. Note: This tool does not replace professional medical advice.</p>
+  </section> -->
+
+  <footer id="contact" class="mt-20 bg-blue-800 text-white py-6">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between">
+      <p>&copy; 2025 Diabetes Risk Predictor</p>
+      <p>Contact: support@healthai.org</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('diabetesForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const values = Array.from(form.querySelectorAll('input')).map(input => parseFloat(input.value));
+      const res = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ features: values })
+      });
+      const data = await res.json();
+      if (data.prediction === 1) {
+        resultDiv.textContent = '⚠️ High Risk of Diabetes';
+        resultDiv.className = 'text-red-600 mt-4 text-lg font-semibold';
+      } else if (data.prediction === 0) {
+        resultDiv.textContent = '✅ Low Risk of Diabetes';
+        resultDiv.className = 'text-green-600 mt-4 text-lg font-semibold';
+      } else {
+        resultDiv.textContent = 'Something went wrong';
+        resultDiv.className = 'text-yellow-600';
+      }
+    });
+  </script>
+</body>
+
+</html>
