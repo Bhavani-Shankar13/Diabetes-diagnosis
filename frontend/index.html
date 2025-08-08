@@ -1,88 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diabetes Risk Predictor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Diagnosis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .hero {
+            background: linear-gradient(to right, #198754, #0d6efd);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .form-section {
+            margin-top: -50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #bbb;
+            padding: 15px 0;
+            text-align: center;
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-gradient-to-tr from-blue-50 via-white to-teal-50 min-h-screen">
-  <header class="bg-blue-800 text-white py-6 shadow-md">
-    <div class="container mx-auto px-6 flex items-center justify-between">
-      <h1 class="text-2xl font-bold">🩺 Diabetes Risk Predictor</h1>
-      <nav>
-        <ul class="flex space-x-4">
-          <li><a href="#" class="hover:underline">Home</a></li>
-          <li><a href="#about" class="hover:underline">About</a></li>
-          <li><a href="#contact" class="hover:underline">Contact</a></li>
-        </ul>
-      </nav>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#"><i class="bi bi-heart-pulse"></i> Diabetes Diagnosis</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#predict">Predict</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            </ul>
+        </div>
     </div>
-  </header>
+</nav>
 
-  <main class="flex flex-col items-center justify-center px-6 pt-12">
-    <div class="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full animate-fade-in">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">Diabetes Prediction</h2>
-      <form id="diabetesForm" class="space-y-4">
-        <input type="number" placeholder="Pregnancies" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-        <input type="number" placeholder="Glucose" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" placeholder="Blood Pressure" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" placeholder="Skin Thickness" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" placeholder="Insulin" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" step="0.1" placeholder="BMI" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" step="0.001" placeholder="Diabetes Pedigree Function" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <input type="number" placeholder="Age" class="w-full border border-gray-300 rounded px-4 py-2" required>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition duration-200 text-white py-2 rounded">Predict</button>
-      </form>
-      <div id="result" class="text-center mt-4 text-lg font-semibold"></div>
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <h1 class="fw-bold">AI-Powered Diabetes Prediction</h1>
+        <p class="lead">Upload your details to check the risk instantly using our Machine Learning model.</p>
+        <a href="#predict" class="btn btn-light btn-lg mt-3">Get Started</a>
     </div>
-  </main>
+</section>
 
-  <!-- <section id="about" class="mt-20 px-6 max-w-4xl mx-auto">
-    <h3 class="text-xl font-bold text-gray-800 mb-4">About This Tool</h3>
-    <p class="text-gray-600">This AI-powered tool predicts the risk of diabetes based on user input. It uses machine learning models trained on real medical data (Pima Indians dataset) to assist in early risk assessment. Note: This tool does not replace professional medical advice.</p>
-  </section> -->
+<!-- Prediction Form Section -->
+<div class="container form-section" id="predict">
+    <h3 class="text-center mb-4">Enter Your Details</h3>
+    <form id="predictionForm">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Pregnancies</label>
+                <input type="number" class="form-control" id="pregnancies" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Glucose Level</label>
+                <input type="number" class="form-control" id="glucose" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Blood Pressure</label>
+                <input type="number" class="form-control" id="bp" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Skin Thickness</label>
+                <input type="number" class="form-control" id="skin" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Insulin Level</label>
+                <input type="number" class="form-control" id="insulin" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">BMI</label>
+                <input type="number" step="0.1" class="form-control" id="bmi" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Diabetes Pedigree Function</label>
+                <input type="number" step="0.001" class="form-control" id="dpf" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" required>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-success btn-lg" onclick="submitForm()">Predict</button>
+        </div>
+    </form>
+    <div id="result" class="alert mt-4 d-none"></div>
+</div>
 
-  <footer id="contact" class="mt-20 bg-blue-800 text-white py-6">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between">
-      <p>&copy; 2025 Diabetes Risk Predictor</p>
-      <p>Contact: support@healthai.org</p>
+<!-- About Section -->
+<!-- <section class="container my-5" id="about">
+    <div class="text-center">
+        <h2>About This Project</h2>
+        <p class="lead">Our AI model uses Support Vector Machines and Genetic Algorithms to predict diabetes risk with high accuracy.</p>
     </div>
-  </footer>
+</section> -->
 
-  <script>
-    const form = document.getElementById('diabetesForm');
-    const resultDiv = document.getElementById('result');
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Diabetes Diagnosis | Powered by Machine Learning</p>
+</footer>
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const values = Array.from(form.querySelectorAll('input')).map(input => parseFloat(input.value));
-      const res = await fetch('http://127.0.0.1:5000/predict', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ features: values })
-      });
-      const data = await res.json();
-      if (data.prediction === 1) {
-        resultDiv.textContent = '⚠️ High Risk of Diabetes';
-        resultDiv.className = 'text-red-600 mt-4 text-lg font-semibold';
-      } else if (data.prediction === 0) {
-        resultDiv.textContent = '✅ Low Risk of Diabetes';
-        resultDiv.className = 'text-green-600 mt-4 text-lg font-semibold';
-      } else {
-        resultDiv.textContent = 'Something went wrong';
-        resultDiv.className = 'text-yellow-600';
-      }
-    });
-  </script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript Functions -->
+<script>
+    function submitForm() {
+        let formValid = document.getElementById('predictionForm').checkValidity();
+        if (!formValid) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Example fetch request (change URL to your Flask backend endpoint)
+        fetch('/predict', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                pregnancies: document.getElementById('pregnancies').value,
+                glucose: document.getElementById('glucose').value,
+                bp: document.getElementById('bp').value,
+                skin: document.getElementById('skin').value,
+                insulin: document.getElementById('insulin').value,
+                bmi: document.getElementById('bmi').value,
+                dpf: document.getElementById('dpf').value,
+                age: document.getElementById('age').value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('d-none');
+            if (data.prediction === 1) {
+                resultDiv.className = 'alert alert-danger';
+                resultDiv.innerHTML = '<i class="bi bi-exclamation-triangle"></i> High risk of diabetes!';
+            } else {
+                resultDiv.className = 'alert alert-success';
+                resultDiv.innerHTML = '<i class="bi bi-check-circle"></i> Low risk of diabetes.';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        });
+    }
+</script>
+
 </body>
-
 </html>
